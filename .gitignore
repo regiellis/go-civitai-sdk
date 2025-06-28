@@ -1,0 +1,67 @@
+# Go CivitAI SDK - Library .gitignore
+#
+# Copyright (c) 2025 Regi Ellis
+# Licensed under Restricted Use License - Non-Commercial Only
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+coverage.txt
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment files (for examples)
+.env
+.env.local
+.env.*.local
+
+# Logs and temporary files
+*.log
+tmp/
+temp/
+
+# Example binaries
+examples/*/main
+examples/*/example
+examples/basic_usage
+examples/advanced_search
+examples/image_search
+examples/model_details
+
+# Test output
+testdata/
+test-results/
+
+# Documentation build
+docs/_build/
+site/
