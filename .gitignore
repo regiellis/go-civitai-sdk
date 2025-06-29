@@ -50,13 +50,7 @@ Thumbs.db
 tmp/
 temp/
 
-# Example binaries
-examples/*/main
-examples/*/example
-examples/basic_usage
-examples/advanced_search
-examples/image_search
-examples/model_details
+
 
 # Test output
 testdata/
@@ -65,3 +59,7 @@ test-results/
 # Documentation build
 docs/_build/
 site/
+
+# Custom
+.claude
+CLAUDE

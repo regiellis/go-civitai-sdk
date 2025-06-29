@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Civitai SDK/API Tester</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- CDN Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    
+    <script>
+        // Configure Tailwind for dark theme
+        tailwind.config = {
+            darkMode: 'class',
+        }
+        
+        // Vanilla JS - no Alpine.js needed!
+        console.log('🎯 Using vanilla JavaScript - much more reliable!');
+    </script>
+</head>
+<body class="dark bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Security Warning -->
+        <div class="bg-red-600 border border-red-400 rounded-lg p-5 mb-8 shadow-lg">
+            <h3 class="flex items-center gap-2 text-xl font-bold mb-3">
+                ⚠️ Security Warning
+            </h3>
+            <p class="text-red-100">
+                <strong>DEVELOPMENT/TESTING TOOL ONLY:</strong> This application is not intended for production use. 
+                Do not expose this server to public networks or untrusted environments. Keep this tool local and secure.
+            </p>
+        </div>
+        
+        <!-- Header -->
+        <div class="text-center mb-12 p-8 bg-gradient-to-br from-blue-600 to-purple-700 rounded-xl shadow-xl">
+            <h1 class="text-4xl font-bold mb-4">Civitai SDK/API Tester</h1>
+            <p class="text-xl text-blue-100">Real-time monitoring of Civitai API endpoints</p>
+        </div>
+        
+        <!-- Status Overview -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+                <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Total Services</h3>
+                <div class="text-3xl font-bold text-blue-400" id="total-count">0</div>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+                <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Operational</h3>
+                <div class="text-3xl font-bold text-green-400" id="passed-count">0</div>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+                <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Issues</h3>
+                <div class="text-3xl font-bold text-red-400" id="failed-count">0</div>
+            </div>
+            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+                <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wide mb-2">Checking</h3>
+                <div class="text-3xl font-bold text-yellow-400" id="running-count">0</div>
+            </div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="flex justify-center gap-4 mb-8">
+            <button 
+                id="start-btn" 
+                onclick="startTests()" 
+                class="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2"
+            >
+                ▶️ Start Tests
+            </button>
+            
+            <button 
+                id="refresh-btn" 
+                onclick="refreshTests()" 
+                class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2"
+                style="display: none;"
+            >
+                🔄 Refresh Tests
+            </button>
+        </div>
+        
+        <!-- Global Progress Bar -->
+        <div id="global-progress-container" class="mb-8" style="display: none;">
+            <div class="bg-gray-800 border border-gray-700 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-lg font-semibold">Test Progress</h3>
+                    <span id="progress-text" class="text-sm text-gray-400">0 / 0 tests completed</span>
+                </div>
+                <div class="w-full bg-gray-700 rounded-full h-3">
+                    <div id="global-progress-bar" class="bg-gradient-to-r from-blue-500 to-green-500 h-3 rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Last Updated -->
+        <div class="text-center mb-8">
+            <p class="text-gray-400" id="last-updated">Loading...</p>
+        </div>
+        
+        <!-- Services List -->
+        <div class="bg-gray-800 border border-gray-700 rounded-xl shadow-xl overflow-hidden" id="services-container">
+            <!-- No Tests Message -->
+            <div id="no-tests-message" class="p-12 text-center">
+                <h3 class="text-2xl font-semibold text-gray-300 mb-4">🚀 Ready to Test Civitai API</h3>
+                <p class="text-gray-400 mb-4">Click "Start Tests" to begin comprehensive API testing of all Civitai endpoints.</p>
+                <p class="text-gray-500">Tests include: Models, Images, Creators, Tags, Search, and Pagination functionality.</p>
+            </div>
+            
+            <!-- Test Results Container -->
+            <div id="test-results" style="display: none;"></div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="text-center mt-12 pt-8 border-t border-gray-700">
+            <p class="text-gray-400 mb-2">
+                Powered by <a href="https://github.com/regiellis/go-civitai-sdk" target="_blank" class="text-blue-400 hover:text-blue-300 font-semibold">go-civitai-sdk</a> | 
+                Auto-refreshing every 5 minutes
+            </p>
+            <p class="text-red-400 font-semibold">⚠️ Testing Tool Only - Not for Production Use</p>
+        </div>
+    </div>
+    
+    <!-- Initialize after DOM and libraries are ready -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📱 DOM loaded');
+            console.log('🎯 Vanilla JS API Tester ready');
+            // Initialize the app
+            if (typeof initApiTester === 'function') {
+                initApiTester();
+            }
+        });
+    </script>
+    
+    <!-- Custom JavaScript -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

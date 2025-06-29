@@ -6,17 +6,17 @@ This document outlines the complete structure of the Go CivitAI SDK library.
 
 ```
 go-civitai-sdk/
-├── README.md                 # Main documentation and usage guide
-├── LICENSE                   # Restricted Use License - Non-Commercial Only
+├── README.md                # Main documentation and usage guide
+├── LICENSE                  # Restricted Use License - Non-Commercial Only
 ├── .gitignore               # Git ignore rules for Go library
 ├── go.mod                   # Go module definition
 ├── verify-structure.sh      # Library structure verification script
 ├── STRUCTURE.md             # This documentation file
 │
 ├── 📚 Core Library Files (package civitai)
-├── client.go                # Main SDK client implementation
-├── types.go                 # Type definitions and constants
-├── exceptions.go            # Error handling and custom exceptions
+├── client.go               # Main SDK client implementation
+├── types.go                # Type definitions and constants
+├── exceptions.go           # Error handling and custom exceptions
 ├── models.go               # Model-related API methods
 ├── model-versions.go       # Model version API methods
 ├── images.go               # Image API methods
@@ -36,11 +36,6 @@ go-civitai-sdk/
 │   ├── model_search.go      # Advanced model searching examples
 │   ├── image_browsing.go    # Image browsing and discovery
 │   └── creator_discovery.go # Creator and tag exploration
-│
-├── 🔧 Command Line Tools
-└── cmd/
-    └── test/
-        └── main.go          # SDK test and validation program
 ```
 
 ## 📦 Package Structure
@@ -176,5 +171,3 @@ Ready for:
 - Clear upgrade paths
 
 ---
-
-**Note**: This SDK follows Go library best practices and is ready for standalone repository hosting.

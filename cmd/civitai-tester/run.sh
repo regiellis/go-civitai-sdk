@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "======================================================================"
+echo "⚠️  SECURITY WARNING: DEVELOPMENT/TESTING TOOL ONLY"
+echo "======================================================================"
+echo "Civitai API Tester"
+echo "=================="
+echo ""
+echo "⚠️  This tool is NOT for production use!"
+echo "⚠️  Do not expose to public networks!"
+echo ""
+echo "Usage: ./civitai-tester [--run] [--help]"
+echo ""
+echo "Environment Variables:"
+echo "  CIVITAI_API_KEY      - Your Civitai API key (optional)"
+echo "  TESTER_PORT          - Web server port (default: 9999)"  
+echo "  TEST_TIMEOUT         - Test timeout in seconds (default: 30)"
+echo ""
+echo "Configuration:"
+echo "  Create config.json from config.example.json to customize settings"
+echo ""
+echo "Starting Civitai API Tester..."
+echo "⚠️  Keep this server local and secure!"
+echo ""
+
+./civitai-tester

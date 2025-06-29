@@ -1,0 +1,17 @@
+{
+  "_comment": "WARNING: This is a development/testing tool only. Do not use in production environments or expose to public networks.",
+  "api_key": "YOUR_CIVITAI_API_KEY_HERE",
+  "server_port": 9999,
+  "test_timeout_seconds": 30,
+  "test_limits": {
+    "models_limit": 5,
+    "images_limit": 5,
+    "creators_limit": 5,
+    "tags_limit": 10
+  },
+  "custom_tests": {
+    "skip_rate_limit_test": false,
+    "only_tests": [],
+    "skip_tests": []
+  }
+}
