@@ -1,4 +1,4 @@
-# Go CivitAI SDK 🎨
+# Go CivitAI API Wrapper 🎨
 
 ![Go Version](https://img.shields.io/badge/Go-1.21+-00ADD8?logo=go&logoColor=white)
 ![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-00D084?logo=go&logoColor=white)
@@ -9,7 +9,7 @@
 ---
 
 >[!TIP]
-> **Zero Dependencies Magic!** ✨ This SDK uses **only Go's standard library** - no external dependencies, no version conflicts, no headaches. Just pure Go goodness that compiles to a single binary and works everywhere Go works!
+> **Zero Dependencies Magic!** ✨ This API Wrapper uses **only Go's standard library** - no external dependencies, no version conflicts, no headaches. Just pure Go goodness that compiles to a single binary and works everywhere Go works!
 
 >[!IMPORTANT]
 > **Ready for Production!** 🚀 This SDK provides complete coverage of the CivitAI REST API with proper error handling, context support, and type safety. It's battle-tested and ready for both hobby projects and production applications.
