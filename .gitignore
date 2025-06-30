@@ -63,3 +63,4 @@ site/
 # Custom
 .claude
 CLAUDE
+cmd/*
