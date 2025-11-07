@@ -420,36 +420,6 @@ go vet ./...
 go test -v
 ```
 
-### What We'd Love Help With
-
-- 🐛 **Bug Reports:** Found an issue? Please report it!
-- ✨ **New Features:** Missing an endpoint? Want better docs?
-- 🧪 **More Tests:** Help us achieve even better coverage
-- 📖 **Documentation:** Improve examples and guides
-- 🎨 **Type Improvements:** Better Go types for API responses
-
-
-## 🔗 Links & Resources
-
-- 🌐 **[CivitAI Platform](https://civitai.com/)** - The amazing AI art community
-- 📚 **[CivitAI API Docs](https://developer.civitai.com/docs/api/public-rest)** - Official API documentation  
-- 🔑 **[Get API Token](https://civitai.com/user/account)** - Your account settings
-- 🐙 **[GitHub Repository](https://github.com/regiellis/go-civitai-sdk)** - Source code and issues
-- 💬 **[Discussions](https://github.com/regiellis/go-civitai-sdk/discussions)** - Questions and community
-
-## 🎉 What's Next?
-
->[!TIP]
-> **Ready to Build Something Amazing?**
->
-> - 🤖 **AI Tools:** Build model discovery and management tools
-> - 🎨 **Content Apps:** Create galleries and showcases
-> - 🔧 **Workflow Automation:** Integrate with your AI pipelines
-> - 📊 **Analytics:** Track trends and discover new content
-> - 🎮 **Games & Apps:** Add AI art integration to your projects
-
-### Start exploring the amazing world of AI art with Go! 🚀
-
 ---
 
 **🎨 Original work by [Regi Ellis](https://github.com/regiellis)** - Built with ❤️ for the AI art community
