@@ -89,8 +89,42 @@ SOFTWARE.
 package civitai
 
 import (
+	"encoding/json"
 	"time"
 )
+
+// FlexibleStringSlice handles API responses that may return either a string or []string
+type FlexibleStringSlice []string
+
+// UnmarshalJSON handles both string and []string JSON values
+func (f *FlexibleStringSlice) UnmarshalJSON(data []byte) error {
+	// Try to unmarshal as a string first
+	var str string
+	if err := json.Unmarshal(data, &str); err == nil {
+		if str != "" {
+			*f = []string{str}
+		} else {
+			*f = []string{}
+		}
+		return nil
+	}
+
+	// Try to unmarshal as []string
+	var slice []string
+	if err := json.Unmarshal(data, &slice); err == nil {
+		*f = slice
+		return nil
+	}
+
+	// Default to empty slice
+	*f = []string{}
+	return nil
+}
+
+// MarshalJSON converts back to JSON (as array)
+func (f FlexibleStringSlice) MarshalJSON() ([]byte, error) {
+	return json.Marshal([]string(f))
+}
 
 // Common types and structures used across all CivitAI resources
 
@@ -322,24 +356,24 @@ func (mv *ModelVersion) GetAIRForEcosystem(ecosystem AIREcosystem) *AIR {
 
 // Model represents a CivitAI model
 type Model struct {
-	ID                    int            `json:"id"`
-	Name                  string         `json:"name"`
-	Description           string         `json:"description,omitempty"`
-	Type                  ModelType      `json:"type"`
-	POI                   bool           `json:"poi,omitempty"`
-	NSFW                  bool           `json:"nsfw,omitempty"`
-	AllowNoCredit         bool           `json:"allowNoCredit,omitempty"`
-	AllowCommercialUse    []string       `json:"allowCommercialUse,omitempty"`
-	AllowDerivatives      bool           `json:"allowDerivatives,omitempty"`
-	AllowDifferentLicense bool           `json:"allowDifferentLicense,omitempty"`
-	Stats                 Stats          `json:"stats,omitempty"`
-	Creator               User           `json:"creator,omitempty"`
-	Tags                  []string       `json:"tags,omitempty"`
-	ModelVersions         []ModelVersion `json:"modelVersions,omitempty"`
-	Images                []Image        `json:"images,omitempty"`
-	CreatedAt             time.Time      `json:"createdAt"`
-	UpdatedAt             time.Time      `json:"updatedAt"`
-	PublishedAt           *time.Time     `json:"publishedAt,omitempty"`
+	ID                    int                 `json:"id"`
+	Name                  string              `json:"name"`
+	Description           string              `json:"description,omitempty"`
+	Type                  ModelType           `json:"type"`
+	POI                   bool                `json:"poi,omitempty"`
+	NSFW                  bool                `json:"nsfw,omitempty"`
+	AllowNoCredit         bool                `json:"allowNoCredit,omitempty"`
+	AllowCommercialUse    FlexibleStringSlice `json:"allowCommercialUse,omitempty"`
+	AllowDerivatives      bool                `json:"allowDerivatives,omitempty"`
+	AllowDifferentLicense bool                `json:"allowDifferentLicense,omitempty"`
+	Stats                 Stats               `json:"stats,omitempty"`
+	Creator               User                `json:"creator,omitempty"`
+	Tags                  []string            `json:"tags,omitempty"`
+	ModelVersions         []ModelVersion      `json:"modelVersions,omitempty"`
+	Images                []Image             `json:"images,omitempty"`
+	CreatedAt             time.Time           `json:"createdAt"`
+	UpdatedAt             time.Time           `json:"updatedAt"`
+	PublishedAt           *time.Time          `json:"publishedAt,omitempty"`
 }
 
 // ToAIR converts the model to an AIR identifier
